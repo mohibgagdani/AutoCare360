@@ -1,0 +1,279 @@
+@import 'tailwindcss';
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ─── Static design tokens ─────────────────────────────────────────────────── */
+@theme {
+  --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-display: 'Plus Jakarta Sans', 'Inter', ui-sans-serif, system-ui, sans-serif;
+
+  --color-brand-50: #eef4ff;
+  --color-brand-100: #dce7ff;
+  --color-brand-200: #bfd3ff;
+  --color-brand-300: #93b5fd;
+  --color-brand-400: #608dfa;
+  --color-brand-500: #3b6af5;
+  --color-brand-600: #2550e6;
+  --color-brand-700: #1d3fcc;
+  --color-brand-800: #1e36a5;
+  --color-brand-900: #1e3282;
+  --color-brand-950: #161f4f;
+
+  --color-navy-700: #1b2438;
+  --color-navy-800: #111a2e;
+  --color-navy-900: #0b1220;
+  --color-navy-950: #060a14;
+
+  --radius-xl: 0.875rem;
+  --radius-2xl: 1.125rem;
+  --radius-3xl: 1.5rem;
+
+  --shadow-card: 0 1px 2px rgb(15 23 42 / 0.04), 0 1px 3px rgb(15 23 42 / 0.06);
+  --shadow-card-hover: 0 4px 10px -2px rgb(15 23 42 / 0.08), 0 12px 28px -8px rgb(15 23 42 / 0.12);
+  --shadow-pop: 0 10px 38px -10px rgb(15 23 42 / 0.35), 0 10px 20px -15px rgb(15 23 42 / 0.2);
+  --shadow-glow: 0 0 0 1px rgb(59 106 245 / 0.18), 0 8px 30px -6px rgb(59 106 245 / 0.45);
+
+  --animate-shimmer: shimmer 1.6s linear infinite;
+  --animate-fade-in: fade-in 0.25s ease-out both;
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-pulse-ring: pulse-ring 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+
+  @keyframes shimmer {
+    from { background-position: -200% 0; }
+    to { background-position: 200% 0; }
+  }
+  @keyframes fade-in {
+    from { opacity: 0; transform: translateY(4px); }
+    to { opacity: 1; transform: none; }
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+  @keyframes pulse-ring {
+    0% { box-shadow: 0 0 0 0 rgb(239 68 68 / 0.45); }
+    70% { box-shadow: 0 0 0 8px rgb(239 68 68 / 0); }
+    100% { box-shadow: 0 0 0 0 rgb(239 68 68 / 0); }
+  }
+}
+
+/* ─── Theme-aware surface tokens (swap per mode) ───────────────────────────── */
+@theme inline {
+  --color-canvas: var(--c-canvas);
+  --color-surface: var(--c-surface);
+  --color-surface-2: var(--c-surface-2);
+  --color-surface-3: var(--c-surface-3);
+  --color-line: var(--c-line);
+  --color-line-strong: var(--c-line-strong);
+  --color-ink: var(--c-ink);
+  --color-ink-2: var(--c-ink-2);
+  --color-ink-3: var(--c-ink-3);
+}
+
+:root {
+  color-scheme: light;
+  --c-canvas: #f4f6fa;
+  --c-surface: #ffffff;
+  --c-surface-2: #f8fafc;
+  --c-surface-3: #eef2f7;
+  --c-line: #e6e9f0;
+  --c-line-strong: #d3d9e4;
+  --c-ink: #0b1220;
+  --c-ink-2: #475569;
+  --c-ink-3: #7b8699;
+
+  /* Charts — validated categorical slots (light surface) */
+  --chart-1: #2a78d6;
+  --chart-2: #eb6834;
+  --chart-3: #1baf7a;
+  --chart-4: #eda100;
+  --chart-5: #e87ba4;
+  --chart-6: #008300;
+  --chart-grid: #edf0f5;
+  --chart-axis: #d3d9e4;
+  --chart-text: #7b8699;
+  --chart-area: rgb(42 120 214 / 0.1);
+
+  /* Status — reserved for good / warning / serious / critical */
+  --status-good: #0ca30c;
+  --status-warning: #fab219;
+  --status-serious: #ec835a;
+  --status-critical: #d03b3b;
+}
+
+.dark {
+  color-scheme: dark;
+  --c-canvas: #070b14;
+  --c-surface: #0e1526;
+  --c-surface-2: #121b30;
+  --c-surface-3: #18233b;
+  --c-line: #1c2740;
+  --c-line-strong: #2a3753;
+  --c-ink: #eef2f8;
+  --c-ink-2: #b3bdcf;
+  --c-ink-3: #7d899f;
+
+  --chart-1: #3987e5;
+  --chart-2: #d95926;
+  --chart-3: #199e70;
+  --chart-4: #c98500;
+  --chart-5: #d55181;
+  --chart-6: #008300;
+  --chart-grid: #182238;
+  --chart-axis: #2a3753;
+  --chart-text: #7d899f;
+  --chart-area: rgb(57 135 229 / 0.14);
+}
+
+/* ─── Base ─────────────────────────────────────────────────────────────────── */
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+  }
+  /* Grid items default to min-width:auto, so a measured child (charts, long
+     labels) can push a 1fr track past the viewport. Utilities still override. */
+  .grid > * {
+    min-width: 0;
+  }
+  body {
+    @apply bg-canvas text-ink font-sans antialiased;
+    font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+  }
+  h1, h2, h3 {
+    @apply tracking-tight;
+  }
+  ::selection {
+    background: rgb(59 106 245 / 0.22);
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-brand-500);
+    outline-offset: 2px;
+    border-radius: 6px;
+  }
+  button, [role='button'] {
+    cursor: pointer;
+  }
+  button:disabled {
+    cursor: not-allowed;
+  }
+  input[type='date']::-webkit-calendar-picker-indicator {
+    opacity: 0.55;
+    cursor: pointer;
+  }
+  .dark input[type='date']::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+  }
+  input[type='number']::-webkit-inner-spin-button,
+  input[type='number']::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  input[type='number'] {
+    -moz-appearance: textfield;
+  }
+}
+
+/* ─── Utilities ────────────────────────────────────────────────────────────── */
+@utility skeleton {
+  background: linear-gradient(90deg, var(--c-surface-3) 25%, var(--c-surface-2) 37%, var(--c-surface-3) 63%);
+  background-size: 400% 100%;
+  animation: var(--animate-shimmer);
+  border-radius: 0.5rem;
+}
+
+@utility scrollbar-thin {
+  scrollbar-width: thin;
+  scrollbar-color: var(--c-line-strong) transparent;
+}
+
+@utility scrollbar-none {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@utility tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+@utility bg-grid {
+  background-image:
+    linear-gradient(to right, rgb(148 163 184 / 0.12) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(148 163 184 / 0.12) 1px, transparent 1px);
+  background-size: 44px 44px;
+}
+
+@utility text-gradient {
+  background: linear-gradient(120deg, #60a5fa 0%, #3b6af5 45%, #22d3ee 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Vehicle illustration backdrop — tint comes from the vehicle's colour */
+.vehicle-art-bg {
+  background:
+    radial-gradient(120% 90% at 85% 10%, rgb(255 255 255 / 0.7), transparent 55%),
+    linear-gradient(135deg, var(--art-light-1), var(--art-light-2));
+}
+.dark .vehicle-art-bg {
+  background:
+    radial-gradient(120% 90% at 85% 10%, rgb(255 255 255 / 0.06), transparent 55%),
+    linear-gradient(135deg, var(--art-dark-1), var(--art-dark-2));
+}
+
+/* Recharts polish */
+.recharts-cartesian-grid line {
+  stroke: var(--chart-grid);
+}
+.recharts-text {
+  fill: var(--chart-text);
+  font-size: 11px;
+}
+.recharts-surface:focus,
+.recharts-wrapper:focus,
+.recharts-sector:focus {
+  outline: none;
+}
+
+/* Printable reports */
+@media print {
+  @page {
+    size: A4;
+    margin: 12mm;
+  }
+  body {
+    background: #fff !important;
+    color: #0b1220 !important;
+  }
+  .no-print {
+    display: none !important;
+  }
+  .print-sheet {
+    box-shadow: none !important;
+    border: none !important;
+    margin: 0 !important;
+    max-width: none !important;
+  }
+  .print-avoid-break {
+    break-inside: avoid;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+.reduce-motion *,
+.reduce-motion *::before,
+.reduce-motion *::after {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+}

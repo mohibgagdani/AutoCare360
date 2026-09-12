@@ -1,0 +1,39 @@
+{
+  "name": "autocare360-server",
+  "version": "1.0.0",
+  "private": true,
+  "description": "AutoCare360 REST API — Express, MongoDB, JWT",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "dev": "nodemon --watch . --ext js,json --ignore uploads/ --ignore seed/ server.js",
+    "start": "node server.js",
+    "seed": "node seed/seed.js",
+    "seed:catalog": "node seed/seed.js --catalog-only"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "cloudinary": "^2.11.0",
+    "compression": "^1.8.1",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "express-rate-limit": "^8.7.0",
+    "helmet": "^8.3.0",
+    "jsonwebtoken": "^9.0.3",
+    "mongoose": "^9.10.0",
+    "morgan": "^1.12.1",
+    "multer": "^2.3.0",
+    "node-cron": "^4.6.0",
+    "nodemailer": "^10.0.3",
+    "pdfkit": "^0.20.2",
+    "zod": "^4.6.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  }
+}

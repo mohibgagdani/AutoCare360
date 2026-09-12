@@ -1,0 +1,25 @@
+# dependencies
+node_modules/
+
+# environment — never commit secrets
+.env
+.env.*
+!.env.example
+
+# builds
+dist/
+build/
+coverage/
+
+# uploads stored on local disk (development fallback when Cloudinary is not configured)
+server/uploads/*
+!server/uploads/.gitkeep
+
+# logs & OS files
+*.log
+npm-debug.log*
+.DS_Store
+Thumbs.db
+.vscode/*
+!.vscode/extensions.json
+.idea/
