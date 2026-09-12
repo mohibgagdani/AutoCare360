@@ -96,19 +96,6 @@ Every item is due on a **whichever-comes-first** basis (time *or* distance/hours
 - URL-synced filters, pagination and sorting; skeleton loading, empty and error states; toast feedback.
 - Friendly error messages. Stack traces never reach the browser.
 
-## Screenshots
-
-> Replace these placeholders with real captures (for example, 1440 px wide, light and dark). Save them in `docs/screenshots/`.
-
-| | |
-| --- | --- |
-| ![Landing page](docs/screenshots/landing.png) <br> *Landing page* | ![Dashboard](docs/screenshots/dashboard.png) <br> *Dashboard (dark)* |
-| ![Vehicles](docs/screenshots/vehicles.png) <br> *Vehicle garage* | ![Vehicle detail](docs/screenshots/vehicle-detail.png) <br> *Vehicle detail & health score* |
-| ![Add vehicle](docs/screenshots/add-vehicle.png) <br> *Add-vehicle wizard with checklist preview* | ![Maintenance](docs/screenshots/maintenance.png) <br> *Maintenance manager* |
-| ![Expenses](docs/screenshots/expenses.png) <br> *Expense analytics* | ![Documents](docs/screenshots/documents.png) <br> *Document vault* |
-| ![Report](docs/screenshots/report.png) <br> *Printable vehicle report* | ![Admin](docs/screenshots/admin.png) <br> *Admin analytics* |
-| ![Mobile](docs/screenshots/mobile.png) <br> *Mobile layout* | ![Light theme](docs/screenshots/light.png) <br> *Light theme* |
-
 ## Tech stack
 
 | Layer | Technology |
